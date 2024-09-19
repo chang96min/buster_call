@@ -16,11 +16,8 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping(value = "/getUser/{id}")
-    public void getUser(@PathVariable Long id){
+    public UserDto getUser(@PathVariable Long id){
         UserDto userDto = userService.getUserEntity(id);
-        System.out.println(userDto.getId());
-        System.out.println(userDto.getName());
-        System.out.println(userDto.getEmail());
-
+        return userDto;
     }
 }

@@ -19,10 +19,14 @@ public class UserServiceImpl implements UserService {
 
         UserDto userDto = UserDto.builder()
                 .id(userEntity.getId())
-                .name(userEntity.getName())
-                .email(userEntity.getEmail())
-                .phone(userEntity.getPhone())
+                .addr(userEntity.getAddr())
                 .age(userEntity.getAge())
+                .email(userEntity.getEmail())
+                .gender(userEntity.getGender())
+                .name(userEntity.getName())
+                .password(userEntity.getPassword())
+                .phone(userEntity.getPhone())
+                .job(userEntity.getJob())
                 .build();
 
         System.out.println(userDto);
