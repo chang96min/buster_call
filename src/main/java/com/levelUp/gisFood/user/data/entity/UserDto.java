@@ -1,5 +1,7 @@
 package com.levelUp.gisFood.user.data.entity;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Id;
 import lombok.*;
 
 @Getter
@@ -10,16 +12,12 @@ import lombok.*;
 public class UserDto {
 
     private Long id;
-
-    private String password;
-
-    private String name;
-
+    private String addr;
+    private String age;
     private String email;
-
-    private String phone;
-
-    private int age;
-
     private String gender;
+    private String name;
+    private String password;
+    private String phone;
+    private String job;
 }
