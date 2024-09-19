@@ -14,3 +14,5 @@
   JAVA 17
   Spring Data JPA
   PostgreSql
+
+- project 진행상황 notion : https://www.notion.so/Docker-Git-Action-CI-CD-6e955ec6ba734fa7b326bb98b9128ceb
