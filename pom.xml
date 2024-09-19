@@ -13,6 +13,7 @@
 	<version>1.0.0</version>
 	<name>gisFood</name>
 	<description>지도(GIS)를 활용한 맛집 플랫폼(mini SNS)</description>
+	<packaging>jar</packaging>
 	<url/>
 	<licenses>
 		<license/>
