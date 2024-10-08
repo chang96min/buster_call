@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.levelUp</groupId>
-	<artifactId>gisFood</artifactId>
+	<artifactId>busterCall</artifactId>
 	<version>1.0.0</version>
-	<name>gisFood</name>
-	<description>지도(GIS)를 활용한 맛집 플랫폼(mini SNS)</description>
+	<name>busterCall</name>
+	<description>10분 안에 모임을 완성하세요!</description>
 	<packaging>jar</packaging>
 	<url/>
 	<licenses>

@@ -1,3 +1,3 @@
 Manifest-Version: 1.0
-Main-Class: com.levelUp.gisFood.GisFoodApplication
+Main-Class: com.levelUp.busterCall.BusterCallApplication
 
