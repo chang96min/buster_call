@@ -1,7 +1,5 @@
-package com.levelUp.gisFood.user.data.entity;
+package com.levelUp.busterCall.user.data.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
 import lombok.*;
 
 @Getter
@@ -11,7 +9,7 @@ import lombok.*;
 @NoArgsConstructor
 public class UserDto {
 
-    private Long id;
+    private Long userId;
     private String addr;
     private String age;
     private String email;

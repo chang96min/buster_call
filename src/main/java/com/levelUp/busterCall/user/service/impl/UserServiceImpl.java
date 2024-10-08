@@ -1,9 +1,9 @@
-package com.levelUp.gisFood.user.service.impl;
+package com.levelUp.busterCall.user.service.impl;
 
-import com.levelUp.gisFood.user.data.entity.UserDto;
-import com.levelUp.gisFood.user.data.entity.UserEntity;
-import com.levelUp.gisFood.user.repository.UserRepository;
-import com.levelUp.gisFood.user.service.UserService;
+import com.levelUp.busterCall.user.data.dto.UserDto;
+import com.levelUp.busterCall.user.data.entity.UserEntity;
+import com.levelUp.busterCall.user.repository.UserRepository;
+import com.levelUp.busterCall.user.service.UserService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,7 @@ public class UserServiceImpl implements UserService {
         UserEntity userEntity = userRepository.getReferenceById(id);
 
         UserDto userDto = UserDto.builder()
-                .id(userEntity.getId())
+                .userId(userEntity.getUserId())
                 .addr(userEntity.getAddr())
                 .age(userEntity.getAge())
                 .email(userEntity.getEmail())
