@@ -1,5 +1,6 @@
 package com.levelUp.busterCall.gathering.data.dto;
 
+import com.levelUp.busterCall.gathering.data.entity.GatheringEntity;
 import lombok.*;
 
 @Getter
@@ -15,5 +16,23 @@ public class GatheringDto {
 
     private String contents;
 
-    private Long views = 0L;
+    private GatheringOwnerDto gatheringOwnerDto;
+
+    private GatheringTimeDto gatheringTimeDto;
+
+    public GatheringEntity toEntity(){
+        return GatheringEntity.builder()
+                .gatheringId(this.gatheringId)
+                .name(this.name)
+                .contents(this.contents)
+                .build();
+    }
+
+    public GatheringDto toDto(GatheringEntity gatheringEntity) {
+        return GatheringDto.builder()
+                .gatheringId(gatheringEntity.getGatheringId())
+                .name(gatheringEntity.getName())
+                .contents(gatheringEntity.getContents())
+                .build();
+    }
 }

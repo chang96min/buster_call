@@ -20,6 +20,10 @@ public class GatheringEntity {
 
     private String contents;
 
-    private Long views;
+    @OneToOne(mappedBy = "gatheringEntity",cascade = CascadeType.ALL)
+    private GatheringOwnerEntity gatheringOwnerEntity;
+
+    @OneToOne(mappedBy = "gatheringEntity", cascade = CascadeType.ALL)
+    private GatheringTimeEntity gatheringTimeEntity;
 
 }

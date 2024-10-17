@@ -1,9 +1,6 @@
 package com.levelUp.busterCall.gathering.data.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
@@ -18,16 +15,17 @@ import java.util.Date;
 public class GatheringViewsEntity {
 
     @Id
-    @Column(name = "gathering_id")
-    private Long gatheringId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "gathering_view_id")
+    private Long gatheringViewId;
 
-    @Id
     @Column(name = "user_id")
     private Long userId;
 
-    @Id
-    private int order;
-
     @Column(name = "reg_date")
     private Date regDate;
+
+    @ManyToOne
+    @JoinColumn(name = "gathering_id")
+    private GatheringEntity gatheringEntity;
 }

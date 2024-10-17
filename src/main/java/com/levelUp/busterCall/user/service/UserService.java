@@ -5,4 +5,6 @@ import com.levelUp.busterCall.user.data.dto.UserDto;
 public interface UserService {
 
     UserDto getUserEntity(Long id);
+
+    UserDto regUser(UserDto userDto);
 }

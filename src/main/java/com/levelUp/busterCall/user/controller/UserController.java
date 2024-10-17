@@ -2,11 +2,9 @@ package com.levelUp.busterCall.user.controller;
 
 import com.levelUp.busterCall.user.data.dto.UserDto;
 import com.levelUp.busterCall.user.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,5 +17,12 @@ public class UserController {
     public UserDto getUser(@PathVariable Long id){
         UserDto userDto = userService.getUserEntity(id);
         return userDto;
+    }
+
+    @PostMapping(value = "/regUser")
+    public UserDto regUser(HttpServletRequest request, @RequestBody UserDto userDto) {
+        UserDto returnValue = userService.regUser(userDto);
+
+        return returnValue;
     }
 }
