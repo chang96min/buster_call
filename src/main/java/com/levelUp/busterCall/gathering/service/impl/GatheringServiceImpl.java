@@ -12,10 +12,10 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -26,31 +26,30 @@ public class GatheringServiceImpl implements GatheringService {
 
     @Override
     @Transactional
-    public GatheringDto regGathering(GatheringDto gatheringDto) {
-
-        //GATHERING TABLE
-        GatheringEntity gatheringEntity = gatheringDto.toEntity();
-
-        //GATHERING_OWNER TABLE
-        GatheringOwnerEntity gatheringOwnerEntity = GatheringOwnerEntity.builder()
-                .userId(gatheringDto.getGatheringOwnerDto().getUserId())
-                .gatheringEntity(gatheringEntity)
-                .build();
-        gatheringEntity.setGatheringOwnerEntity(gatheringOwnerEntity);
-
-        //GATHERING_TIME TABLE
-        LocalDateTime now = LocalDateTime.now();
-        GatheringTimeEntity gatheringTimeEntity = GatheringTimeEntity.builder()
-                .sDate(now)
-                .eDate(now.plusMinutes(10))
-                .gatheringEntity(gatheringEntity)
-                .build();
-        gatheringEntity.setGatheringTimeEntity(gatheringTimeEntity);
-
-        //SAVE
-        GatheringEntity returnGatheringEntity = gatheringRepository.save(gatheringEntity);
-
-        return gatheringDto;
+    public String saveGathering(GatheringDto gatheringDto) {
+        try {
+            //GATHERING TABLE
+            GatheringEntity gatheringEntity = gatheringDto.toEntity();
+            //GATHERING_OWNER TABLE
+            GatheringOwnerEntity gatheringOwnerEntity = GatheringOwnerEntity.builder()
+                    .userId(gatheringDto.getGatheringOwnerDto().getUserId())
+                    .gatheringEntity(gatheringEntity)
+                    .build();
+            gatheringEntity.setGatheringOwnerEntity(gatheringOwnerEntity);
+            //GATHERING_TIME TABLE
+            LocalDateTime now = LocalDateTime.now();
+            GatheringTimeEntity gatheringTimeEntity = GatheringTimeEntity.builder()
+                    .sDate(now)
+                    .eDate(now.plusMinutes(10))
+                    .gatheringEntity(gatheringEntity)
+                    .build();
+            gatheringEntity.setGatheringTimeEntity(gatheringTimeEntity);
+            //SAVE
+            GatheringEntity returnGatheringEntity = gatheringRepository.save(gatheringEntity);
+        } catch (Exception e) {
+            return e.getMessage();
+        }
+        return "생성되었습니다.";
     }
 
     @Override
@@ -78,7 +77,7 @@ public class GatheringServiceImpl implements GatheringService {
     @Transactional
     public List<GatheringDto> getUsingGatheringList(){
         LocalDateTime now = LocalDateTime.now();
-        List<GatheringEntity> gatheringEntityList = gatheringRepository.findByGatheringTimeEntity_sDateBeforeAndGatheringTimeEntity_eDateAfter(now, now);
+        List<GatheringEntity> gatheringEntityList = gatheringRepository.findGatheringByUsing();
         List<GatheringDto> gatheringDtoList = new ArrayList<>();
 
         for(GatheringEntity gatheringEntity : gatheringEntityList){
@@ -94,5 +93,19 @@ public class GatheringServiceImpl implements GatheringService {
         }
 
         return gatheringDtoList;
+    }
+
+    @Override
+    public GatheringDto getGatheringDetail(GatheringDto gatheringDto) {
+        Optional<GatheringEntity> gatheringEntity = gatheringRepository.findById(gatheringDto.getGatheringId());
+
+        return gatheringEntity.map(data -> GatheringDto.builder()
+                .gatheringId(data.getGatheringId())
+                .name(data.getName())
+                .contents(data.getContents())
+                .gatheringOwnerDto(GatheringOwnerDto.builder().build().toDto(data.getGatheringOwnerEntity()))
+                .gatheringTimeDto(GatheringTimeDto.builder().build().toDto(data.getGatheringTimeEntity()))
+                .build()
+        ).orElse(null);
     }
 }

@@ -6,10 +6,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface GatheringService {
-
-    GatheringDto regGathering(GatheringDto gatheringDto);
+    String saveGathering(GatheringDto gatheringDto);
 
     List<GatheringDto> getGatheringList(GatheringDto gatheringDto);
 
     List<GatheringDto> getUsingGatheringList();
+
+    GatheringDto getGatheringDetail(GatheringDto gatheringDto);
 }
