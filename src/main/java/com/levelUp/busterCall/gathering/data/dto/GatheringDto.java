@@ -2,10 +2,13 @@ package com.levelUp.busterCall.gathering.data.dto;
 
 import com.levelUp.busterCall.gathering.data.entity.GatheringEntity;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
+
+import java.util.Optional;
 
 @Getter
 @Setter
-@Builder
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
 public class GatheringDto {
@@ -25,6 +28,8 @@ public class GatheringDto {
                 .gatheringId(this.gatheringId)
                 .name(this.name)
                 .contents(this.contents)
+                .gatheringOwnerEntity(this.gatheringOwnerDto.toEntity())
+                .gatheringTimeEntity(this.gatheringTimeDto.toEntity())
                 .build();
     }
 
@@ -33,6 +38,8 @@ public class GatheringDto {
                 .gatheringId(gatheringEntity.getGatheringId())
                 .name(gatheringEntity.getName())
                 .contents(gatheringEntity.getContents())
+                .gatheringOwnerDto(GatheringOwnerDto.builder().build().toDto(gatheringEntity.getGatheringOwnerEntity()))
+                .gatheringTimeDto(GatheringTimeDto.builder().build().toDto(gatheringEntity.getGatheringTimeEntity()))
                 .build();
     }
 }

@@ -1,16 +1,13 @@
 package com.levelUp.busterCall.gathering.service;
 
-import com.levelUp.busterCall.gathering.data.dto.GatheringDto;
-import jakarta.servlet.http.HttpServletRequest;
+import com.levelUp.busterCall.gathering.data.dto.*;
 
 import java.util.List;
 
 public interface GatheringService {
-    String saveGathering(GatheringDto gatheringDto);
+    GatheringSaveResponseDto saveGathering(GatheringSaveRequestDto gatheringSaveDto);
 
-    List<GatheringDto> getGatheringList(GatheringDto gatheringDto);
-
-    List<GatheringDto> getUsingGatheringList();
+    List<GatheringSearchResponseDto> getGatheringList(GatheringSearchRequestDto gatheringSearchRequestDto);
 
     GatheringDto getGatheringDetail(GatheringDto gatheringDto);
 }

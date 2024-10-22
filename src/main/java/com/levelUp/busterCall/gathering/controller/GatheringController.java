@@ -1,11 +1,12 @@
 package com.levelUp.busterCall.gathering.controller;
 
-import com.levelUp.busterCall.gathering.data.dto.GatheringDto;
+import com.levelUp.busterCall.common.response.ApiResponse;
+import com.levelUp.busterCall.gathering.data.dto.*;
 import com.levelUp.busterCall.gathering.service.GatheringService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.ui.Model;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,19 +18,31 @@ public class GatheringController {
 
     private final GatheringService gatheringService;
 
-    @PostMapping(value = "/saveGathering")
-    public String saveGathering(HttpServletRequest request, @RequestBody GatheringDto gatheringDto) {
-        return gatheringService.saveGathering(gatheringDto);
+    @PostMapping(value = "/gathering")
+    public ResponseEntity<ApiResponse<GatheringSaveResponseDto>> saveGathering(@RequestBody GatheringSaveRequestDto gatheringSaveRequestDto) {
+        GatheringSaveResponseDto returnValue = gatheringService.saveGathering(gatheringSaveRequestDto);
+        if(returnValue != null){
+            return ResponseEntity.ok(ApiResponse.success(returnValue));
+        }else{
+            return ResponseEntity.ok(ApiResponse.error());
+        }
     }
 
-    @GetMapping(value = "/getGatheringList")
-    public List<GatheringDto> getGatheringList(HttpServletRequest request, HttpServletResponse response, @RequestBody GatheringDto gatheringDto) {
-        return gatheringService.getGatheringList(gatheringDto);
-    }
-
-    @GetMapping(value = "/getUsingGatheringList")
-    public List<GatheringDto> getUsingGatheringList(HttpServletRequest request, HttpServletResponse response) {
-        return gatheringService.getUsingGatheringList();
+    @GetMapping(value = "/gatherings")
+    public ResponseEntity<ApiResponse<List<GatheringSearchResponseDto>>> getGatheringList(@RequestParam int page,
+                                                                                          @RequestParam int size,
+                                                                                          @RequestParam boolean useYn) {
+        GatheringSearchRequestDto gatheringSearchRequestDto = GatheringSearchRequestDto.builder()
+                .page(page)
+                .size(size)
+                .useYn(useYn)
+                .build();
+        List<GatheringSearchResponseDto> returnValue = gatheringService.getGatheringList(gatheringSearchRequestDto);
+        if(returnValue != null) {
+            return ResponseEntity.ok(ApiResponse.success(returnValue));
+        } else {
+            return ResponseEntity.ok(ApiResponse.error());
+        }
     }
 
     @GetMapping("/getGatheringDetail")
