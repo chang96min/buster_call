@@ -6,7 +6,7 @@ import com.levelUp.busterCall.gathering.repository.GatheringRepositoryCustom;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
@@ -20,7 +20,7 @@ public class GatheringRepositoryCustomImpl implements GatheringRepositoryCustom 
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public List<GatheringEntity> findGatheringByUsing(Pageable pageable){
+    public Page<GatheringEntity> findGatheringByUsing(Pageable pageable){
         QGatheringEntity qGatheringEntity = QGatheringEntity.gatheringEntity;
         LocalDateTime now = LocalDateTime.now();
 
@@ -33,6 +33,6 @@ public class GatheringRepositoryCustomImpl implements GatheringRepositoryCustom 
                 .limit(pageable.getPageSize())
                 .fetch();
 
-        return gatheringEntityList;
+        return new PageImpl<>(gatheringEntityList);
     }
 }

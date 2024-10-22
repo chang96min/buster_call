@@ -45,10 +45,11 @@ public class GatheringServiceImpl implements GatheringService {
     @Transactional
     public List<GatheringSearchResponseDto> getGatheringList(GatheringSearchRequestDto gatheringSearchRequestDto) {
         Page<GatheringEntity> gatheringEntityList;
+        Pageable pageable = PageRequest.of(gatheringSearchRequestDto.getPage(), gatheringSearchRequestDto.getSize());
         if(gatheringSearchRequestDto.isUseYn()){
-           gatheringEntityList = new PageImpl<>(gatheringRepository.findGatheringByUsing(PageRequest.of(gatheringSearchRequestDto.getPage(), gatheringSearchRequestDto.getSize())));
+            gatheringEntityList = gatheringRepository.findGatheringByUsing(pageable);
         }else{
-            gatheringEntityList = gatheringRepository.findAll(PageRequest.of(gatheringSearchRequestDto.getPage(), gatheringSearchRequestDto.getSize()));
+            gatheringEntityList = gatheringRepository.findAll(pageable);
         }
         return gatheringEntityList.getContent().stream().map(data -> GatheringSearchResponseDto.builder().build().toDto(data)).collect(Collectors.toList());
     }
