@@ -1,4 +1,4 @@
-package com.levelUp.busterCall.common.config.query_dsl;
+package com.levelUp.busterCall.common.queryDsl.config;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
