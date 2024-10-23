@@ -20,7 +20,7 @@ public class GatheringOwnerEntity {
     @Column(name = "user_id")
     private Long userId;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "gathering_id")
     private GatheringEntity gatheringEntity;
 }

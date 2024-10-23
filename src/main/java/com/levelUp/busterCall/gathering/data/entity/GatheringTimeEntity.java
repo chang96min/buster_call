@@ -25,7 +25,7 @@ public class GatheringTimeEntity {
     @Column(name = "e_date")
     private LocalDateTime eDate;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "gathering_id")
     private GatheringEntity gatheringEntity;
 }
