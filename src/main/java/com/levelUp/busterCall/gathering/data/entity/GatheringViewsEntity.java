@@ -4,7 +4,7 @@ import com.levelUp.busterCall.user.data.entity.UserEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -21,7 +21,7 @@ public class GatheringViewsEntity {
     private Long gatheringViewId;
 
     @Column(name = "reg_date")
-    private Date regDate;
+    private LocalDateTime regDate;
 
     @ManyToOne
     @JoinColumn(name = "gathering_id")

@@ -2,8 +2,10 @@ package com.levelUp.busterCall.gathering.service.impl;
 
 import com.levelUp.busterCall.gathering.data.dto.*;
 import com.levelUp.busterCall.gathering.data.entity.GatheringEntity;
+import com.levelUp.busterCall.gathering.data.entity.GatheringViewsEntity;
 import com.levelUp.busterCall.gathering.repository.GatheringRepository;
 import com.levelUp.busterCall.gathering.service.GatheringService;
+import com.levelUp.busterCall.user.data.entity.UserEntity;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -11,13 +13,13 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-@Service
 @RequiredArgsConstructor
-@Transactional
+@Service
 public class GatheringServiceImpl implements GatheringService {
 
     private final GatheringRepository gatheringRepository;
@@ -56,7 +58,14 @@ public class GatheringServiceImpl implements GatheringService {
     public GatheringDetailResponseDto getGatheringDetail(Long gatheringId) {
         Optional<GatheringEntity> gatheringEntity = gatheringRepository.findById(gatheringId);
         if(gatheringEntity.isPresent()){
-            return GatheringDetailResponseDto.builder().build().toDto(gatheringEntity.get());
+            GatheringViewsEntity gatheringViewsEntity = GatheringViewsEntity.builder()
+                    .regDate(LocalDateTime.now())
+                    .userEntity(UserEntity.builder().userId(2L).build())
+                    .gatheringEntity(gatheringEntity.get())
+                    .build();
+            gatheringEntity.get().getGatheringViewsEntityList().add(gatheringViewsEntity);
+            GatheringEntity savGatheringEntity = gatheringRepository.save(gatheringEntity.get());
+            return GatheringDetailResponseDto.builder().build().toDto(savGatheringEntity);
         } else {
             return null;
         }

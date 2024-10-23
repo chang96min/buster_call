@@ -7,7 +7,6 @@ import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,6 +26,7 @@ public class GatheringDetailResponseDto {
     //GatheringAttend
     List<GatheringAttendDto> gatheringAttendDtoList;
     //GatheringViews
+    private int gatheringViewsCount;
     List<GatheringViewsDto> gatheringViewsDtoList;
 
     @Data
@@ -51,13 +51,14 @@ public class GatheringDetailResponseDto {
         private Long gatheringViewsId;
         private Long userId;
         private String name;
-        private Date  regDate;
+        private LocalDateTime  regDate;
 
         public GatheringViewsDto toDto(GatheringViewsEntity gatheringViewsEntity) {
             return GatheringViewsDto.builder()
                     .gatheringViewsId(gatheringViewsEntity.getGatheringViewId())
                     .userId(gatheringViewsEntity.getUserEntity().getUserId())
                     .name(gatheringViewsEntity.getUserEntity().getName())
+                    .regDate(gatheringViewsEntity.getRegDate())
                     .build();
         }
     }
@@ -72,6 +73,7 @@ public class GatheringDetailResponseDto {
                 .sDate(gatheringEntity.getGatheringTimeEntity().getSDate())
                 .eDate(gatheringEntity.getGatheringTimeEntity().getEDate())
                 .gatheringAttendDtoList(gatheringEntity.getGatheringAttendEntityList().stream().map(data -> GatheringAttendDto.builder().build().toDto(data)).collect(Collectors.toList()))
+                .gatheringViewsCount(gatheringEntity.getGatheringViewsEntityList().size())
                 .gatheringViewsDtoList(gatheringEntity.getGatheringViewsEntityList().stream().map(data -> GatheringViewsDto.builder().build().toDto(data)).collect(Collectors.toList()))
                 .build();
     }
