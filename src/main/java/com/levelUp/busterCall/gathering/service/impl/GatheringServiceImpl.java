@@ -7,13 +7,10 @@ import com.levelUp.busterCall.gathering.service.GatheringService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -56,9 +53,12 @@ public class GatheringServiceImpl implements GatheringService {
 
     @Override
     @Transactional
-    public GatheringDto getGatheringDetail(GatheringDto gatheringDto) {
-        Optional<GatheringEntity> gatheringEntity = gatheringRepository.findById(gatheringDto.getGatheringId());
-
-        return gatheringEntity.map(data -> new GatheringDto().toDto(data)).orElse(null);
+    public GatheringDetailResponseDto getGatheringDetail(Long gatheringId) {
+        Optional<GatheringEntity> gatheringEntity = gatheringRepository.findById(gatheringId);
+        if(gatheringEntity.isPresent()){
+            return GatheringDetailResponseDto.builder().build().toDto(gatheringEntity.get());
+        } else {
+            return null;
+        }
     }
 }

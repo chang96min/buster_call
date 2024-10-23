@@ -1,5 +1,6 @@
 package com.levelUp.busterCall.gathering.data.entity;
 
+import com.levelUp.busterCall.user.data.entity.UserEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,9 +20,6 @@ public class GatheringAttendEntity {
     @Column(name = "gathering_attend_id")
     private Long gatheringAttendId;
 
-    @Column(name = "user_id")
-    private Long userId;
-
     @Column(name = "reg_date")
     private Date regDate;
 
@@ -31,4 +29,8 @@ public class GatheringAttendEntity {
     @ManyToOne
     @JoinColumn(name = "gathering_id")
     private GatheringEntity gatheringEntity;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity userEntity;
 }

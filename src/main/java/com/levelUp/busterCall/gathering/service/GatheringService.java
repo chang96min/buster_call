@@ -9,5 +9,5 @@ public interface GatheringService {
 
     List<GatheringSearchResponseDto> getGatheringList(GatheringSearchRequestDto gatheringSearchRequestDto);
 
-    GatheringDto getGatheringDetail(GatheringDto gatheringDto);
+    GatheringDetailResponseDto getGatheringDetail(Long gatheringId);
 }

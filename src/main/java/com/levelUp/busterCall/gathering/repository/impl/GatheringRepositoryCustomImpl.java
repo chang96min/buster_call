@@ -5,6 +5,7 @@ import com.levelUp.busterCall.gathering.data.entity.QGatheringEntity;
 import com.levelUp.busterCall.gathering.data.entity.QGatheringOwnerEntity;
 import com.levelUp.busterCall.gathering.data.entity.QGatheringTimeEntity;
 import com.levelUp.busterCall.gathering.repository.GatheringRepositoryCustom;
+import com.levelUp.busterCall.user.data.entity.QUserEntity;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -27,6 +28,7 @@ public class GatheringRepositoryCustomImpl implements GatheringRepositoryCustom 
         QGatheringEntity qGatheringEntity = QGatheringEntity.gatheringEntity;
         QGatheringOwnerEntity  qGatheringOwnerEntity = QGatheringOwnerEntity.gatheringOwnerEntity;
         QGatheringTimeEntity qGatheringTimeEntity = QGatheringTimeEntity.gatheringTimeEntity;
+        QUserEntity qUserEntity = QUserEntity.userEntity;
 
         LocalDateTime now = LocalDateTime.now();
 
@@ -34,6 +36,7 @@ public class GatheringRepositoryCustomImpl implements GatheringRepositoryCustom 
                 .selectFrom(qGatheringEntity)
                 .leftJoin(qGatheringEntity.gatheringOwnerEntity, qGatheringOwnerEntity).fetchJoin()
                 .leftJoin(qGatheringEntity.gatheringTimeEntity, qGatheringTimeEntity).fetchJoin()
+                .leftJoin(qGatheringEntity.gatheringOwnerEntity.userEntity, qUserEntity).fetchJoin()
                 .where(qGatheringEntity.gatheringTimeEntity.sDate.before(now)
                         .and(qGatheringEntity.gatheringTimeEntity.eDate.after(now))
                 )
