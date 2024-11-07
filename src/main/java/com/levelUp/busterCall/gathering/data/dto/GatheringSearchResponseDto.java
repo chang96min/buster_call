@@ -12,7 +12,8 @@ public class GatheringSearchResponseDto {
     private Long gatheringId;
     private String name;
     private String contents;
-    private Long userId;
+    private Long ownerId;
+    private String ownerName;
     private LocalDateTime sDate;
     private LocalDateTime eDate;
 
@@ -21,7 +22,8 @@ public class GatheringSearchResponseDto {
                 .gatheringId(gatheringEntity.getGatheringId())
                 .name(gatheringEntity.getName())
                 .contents(gatheringEntity.getContents())
-                .userId(gatheringEntity.getGatheringOwnerEntity().getUserId())
+                .ownerId(gatheringEntity.getGatheringOwnerEntity().getUserEntity().getUserId())
+                .ownerName(gatheringEntity.getGatheringOwnerEntity().getUserEntity().getName())
                 .sDate(gatheringEntity.getGatheringTimeEntity().getSDate())
                 .eDate(gatheringEntity.getGatheringTimeEntity().getEDate())
                 .build();

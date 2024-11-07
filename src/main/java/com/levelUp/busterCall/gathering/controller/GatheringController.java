@@ -6,6 +6,7 @@ import com.levelUp.busterCall.gathering.service.GatheringService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,8 +46,13 @@ public class GatheringController {
         }
     }
 
-    @GetMapping("/getGatheringDetail")
-    public GatheringDto getGatheringDetail(HttpServletRequest request, HttpServletResponse response, @RequestBody GatheringDto gatheringDto) {
-        return gatheringService.getGatheringDetail(gatheringDto);
+    @GetMapping("/gathering/{gatheringId}")
+    public ResponseEntity<ApiResponse<GatheringDetailResponseDto>> getGatheringDetail(@PathVariable Long gatheringId) {
+        GatheringDetailResponseDto returnValue = gatheringService.getGatheringDetail(gatheringId);
+        if(returnValue != null) {
+            return ResponseEntity.ok(ApiResponse.success(returnValue));
+        }else {
+            return ResponseEntity.ok(ApiResponse.error());
+        }
     }
 }

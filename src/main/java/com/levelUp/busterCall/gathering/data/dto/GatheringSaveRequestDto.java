@@ -3,6 +3,7 @@ package com.levelUp.busterCall.gathering.data.dto;
 import com.levelUp.busterCall.gathering.data.entity.GatheringEntity;
 import com.levelUp.busterCall.gathering.data.entity.GatheringOwnerEntity;
 import com.levelUp.busterCall.gathering.data.entity.GatheringTimeEntity;
+import com.levelUp.busterCall.user.data.entity.UserEntity;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -24,8 +25,8 @@ public class GatheringSaveRequestDto{
                 .build();
 
         GatheringOwnerEntity gatheringOwnerEntity = GatheringOwnerEntity.builder()
-                .userId(this.userId)
                 .gatheringEntity(gatheringEntity)
+                .userEntity(UserEntity.builder().userId(this.userId).build())
                 .build();
 
         LocalDateTime now = LocalDateTime.now();

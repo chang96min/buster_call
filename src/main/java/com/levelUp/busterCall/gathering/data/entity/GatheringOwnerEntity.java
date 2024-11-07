@@ -1,5 +1,6 @@
 package com.levelUp.busterCall.gathering.data.entity;
 
+import com.levelUp.busterCall.user.data.entity.UserEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,10 +18,11 @@ public class GatheringOwnerEntity {
     @Column(name = "gathering_owner_id")
     private Long gatheringOwnerId;
 
-    @Column(name = "user_id")
-    private Long userId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity userEntity;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "gathering_id")
     private GatheringEntity gatheringEntity;
 }
